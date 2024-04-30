@@ -1,0 +1,28 @@
+{
+    "name": "open-solid/domain-event-bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "description": "Symfony bundle for domain events",
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.2",
+        "open-solid/domain-event": "^1.0",
+        "symfony/framework-bundle": "^6.4|^7.0"
+    },
+    "require-dev": {
+        "symfony/messenger": "^7.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "OpenSolid\\DomainEventBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OpenSolid\\DomainEventBundle\\Tests\\": "tests/"
+        }
+    }
+}
