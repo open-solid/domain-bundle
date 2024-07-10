@@ -1,9 +1,14 @@
 {
     "name": "open-solid/domain-event-bundle",
+    "description": "Symfony bundle for domain events",
     "type": "symfony-bundle",
     "license": "MIT",
-    "description": "Symfony bundle for domain events",
-    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Yonel Ceruto",
+            "email": "open@yceruto.dev"
+        }
+    ],
     "require": {
         "php": ">=8.2",
         "open-solid/domain-event": "^1.0",
