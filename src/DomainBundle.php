@@ -1,26 +1,37 @@
 <?php
 
-namespace OpenSolid\DomainEventBundle;
+declare(strict_types=1);
 
-use OpenSolid\DomainEventBundle\Attribute\AsDomainEventSubscriber;
-use OpenSolid\Messenger\Bridge\Symfony\DependencyInjection\CompilerPass\MessageHandlersLocatorPass;
-use OpenSolid\Messenger\Bridge\Symfony\DependencyInjection\Configurator\MessageHandlerConfigurator;
+/*
+ * This file is part of OpenSolid package.
+ *
+ * (c) Yonel Ceruto <open@yceruto.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace OpenSolid\DomainBundle;
+
+use OpenSolid\DomainBundle\Attribute\AsDomainEventSubscriber;
+use OpenSolid\Bus\Bridge\Symfony\DependencyInjection\CompilerPass\MessageHandlersLocatorPass;
+use OpenSolid\Bus\Bridge\Symfony\DependencyInjection\Configurator\MessageHandlerConfigurator;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class DomainEventBundle extends AbstractBundle
+class DomainBundle extends AbstractBundle
 {
-    public function configure(DefinitionConfigurator $definition) : void
+    public function configure(DefinitionConfigurator $definition): void
     {
         $definition->import('../config/definition.php');
     }
 
     public function build(ContainerBuilder $container): void
     {
-        $container->addCompilerPass(new MessageHandlersLocatorPass('domain_event.subscriber', 'domain_event.middleware.subscriber', true));
+        $container->addCompilerPass(new MessageHandlersLocatorPass('domain.event.subscriber', 'domain.event.subscriber.middleware', [], true, 'event'));
     }
 
     public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
@@ -29,11 +40,11 @@ class DomainEventBundle extends AbstractBundle
             $container->import('../config/packages/messenger.php');
         }
     }
-    
-    public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder) : void
+
+    public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
-        if ($config['bus']['strategy'] === 'native') {
-            MessageHandlerConfigurator::configure($builder, AsDomainEventSubscriber::class, 'domain_event.subscriber');
+        if ('native' === $config['bus']['strategy']) {
+            MessageHandlerConfigurator::configure($builder, AsDomainEventSubscriber::class, 'domain.event.subscriber');
 
             $container->import('../config/native.php');
         } else {

@@ -1,6 +1,6 @@
 {
-    "name": "open-solid/domain-event-bundle",
-    "description": "Symfony bundle for domain events",
+    "name": "open-solid/domain-bundle",
+    "description": "Symfony bundle for domain building blocks",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
@@ -11,23 +11,27 @@
     ],
     "require": {
         "php": ">=8.2",
-        "open-solid/domain-event": "^1.0",
-        "symfony/framework-bundle": "^6.4|^7.0"
+        "open-solid/domain": "^1.0",
+        "symfony/framework-bundle": "^6.4|^7.1"
     },
     "require-dev": {
-        "symfony/messenger": "^7.0"
+        "symfony/messenger": "^7.1",
+        "friendsofphp/php-cs-fixer": "^3.54"
     },
     "config": {
         "sort-packages": true
     },
     "autoload": {
         "psr-4": {
-            "OpenSolid\\DomainEventBundle\\": "src/"
+            "OpenSolid\\DomainBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "OpenSolid\\DomainEventBundle\\Tests\\": "tests/"
+            "OpenSolid\\DomainBundle\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "cs": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
     }
 }

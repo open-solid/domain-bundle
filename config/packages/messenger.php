@@ -1,6 +1,6 @@
 <?php
 
-use OpenSolid\DomainEvent\DomainEvent;
+use OpenSolid\Domain\Event\DomainEvent;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 return static function (ContainerBuilder $container) {
