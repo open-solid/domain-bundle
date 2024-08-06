@@ -1,18 +1,19 @@
-# DomainEventBundle
+# Domain Bundle for Symfony framework
 
-A Symfony bundle for handling domain events (https://github.com/open-solid/domain-event).
+A Symfony bundle for domain building blocks (https://github.com/open-solid/domain).
 
 ## Installation
 
 ```console
-$ composer require open-solid/domain-event-bundle
+$ composer require open-solid/domain-bundle
 ```
 
 ## Usage
 
 ```php
-use OpenSolid\DomainEvent\DomainEvent;
-use OpenSolid\DomainEventBundle\Attribute\AsDomainEventSubscriber;
+use OpenSolid\Domain\Event\Bus\EventBus;
+use OpenSolid\Domain\Event\DomainEvent;
+use OpenSolid\DomainBundle\Attribute\AsDomainEventSubscriber;
 
 class UserRegistered extends DomainEvent
 {
@@ -29,7 +30,7 @@ class UserRegisteredHandler
 
 class UserService
 {
-    public function __construct(private DomainEventPublisher $publisher)
+    public function __construct(private EventBus $eventBus)
     {
     }
 
@@ -37,7 +38,7 @@ class UserService
     {
         // Register the user
 
-        $this->publisher->publish(new UserRegistered('uuid'));
+        $this->eventBus->publish(new UserRegistered('uuid'));
     }
 }
 ```
