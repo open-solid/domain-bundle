@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace OpenSolid\DomainBundle;
 
-use OpenSolid\DomainBundle\Attribute\AsDomainEventSubscriber;
-use OpenSolid\Bus\Bridge\Symfony\DependencyInjection\CompilerPass\MessageHandlersLocatorPass;
+use OpenSolid\Bus\Bridge\Symfony\DependencyInjection\CompilerPass\HandlingMiddlewarePass;
 use OpenSolid\Bus\Bridge\Symfony\DependencyInjection\Configurator\MessageHandlerConfigurator;
+use OpenSolid\DomainBundle\Attribute\AsDomainEventSubscriber;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -31,7 +31,7 @@ class DomainBundle extends AbstractBundle
 
     public function build(ContainerBuilder $container): void
     {
-        $container->addCompilerPass(new MessageHandlersLocatorPass('domain.event.subscriber', 'domain.event.subscriber.middleware', [], true, 'event'));
+        $container->addCompilerPass(new HandlingMiddlewarePass('domain.event.subscriber', 'domain.event.subscriber.middleware', [], true, 'event'));
     }
 
     public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void

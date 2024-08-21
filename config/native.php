@@ -1,6 +1,6 @@
 <?php
 
-use OpenSolid\Bus\Handler\MessageHandlersCountPolicy;
+use OpenSolid\Bus\Handler\HandlersCountPolicy;
 use OpenSolid\Bus\Middleware\HandlingMiddleware;
 use OpenSolid\Bus\Middleware\LoggingMiddleware;
 use OpenSolid\Bus\NativeLazyMessageBus;
@@ -25,7 +25,8 @@ return static function (ContainerConfigurator $container) {
         ->set('domain.event.subscriber.middleware', HandlingMiddleware::class)
             ->args([
                 abstract_arg('domain.event.subscriber.locator'),
-                MessageHandlersCountPolicy::NO_HANDLER,
+                abstract_arg('domain.event.decorator.locator'),
+                HandlersCountPolicy::NO_HANDLER,
                 service('logger'),
                 'Domain event',
             ])
