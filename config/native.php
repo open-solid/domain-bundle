@@ -9,6 +9,8 @@ use OpenSolid\Domain\Event\Bus\EventBus;
 use OpenSolid\Domain\Event\Bus\NativeEventBus;
 use OpenSolid\DomainBundle\HttpKernel\Subscriber\KernelTerminateSubscriber;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Yceruto\Decorator\DecoratorInterface;
+
 use function Symfony\Component\DependencyInjection\Loader\Configurator\abstract_arg;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
@@ -25,8 +27,8 @@ return static function (ContainerConfigurator $container) {
         ->set('domain.event.subscriber.middleware', HandlingMiddleware::class)
             ->args([
                 abstract_arg('domain.event.subscriber.locator'),
-                abstract_arg('domain.event.decorator.locator'),
                 HandlersCountPolicy::NO_HANDLER,
+                service(DecoratorInterface::class),
                 service('logger'),
                 'Domain event',
             ])
