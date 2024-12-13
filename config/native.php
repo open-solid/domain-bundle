@@ -28,7 +28,7 @@ return static function (ContainerConfigurator $container) {
             ->args([
                 abstract_arg('domain.event.subscriber.locator'),
                 HandlersCountPolicy::NO_HANDLER,
-                service(DecoratorInterface::class),
+                service(DecoratorInterface::class)->nullOnInvalid(),
                 service('logger'),
                 'Domain event',
             ])

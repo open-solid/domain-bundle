@@ -16,7 +16,8 @@
     },
     "require-dev": {
         "symfony/messenger": "^7.1",
-        "friendsofphp/php-cs-fixer": "^3.54"
+        "friendsofphp/php-cs-fixer": "^3.54",
+        "yceruto/decorator": "^1.2"
     },
     "config": {
         "sort-packages": true
